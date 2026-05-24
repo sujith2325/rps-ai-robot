@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Robot RPS Arena</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <section class="arena">
+      <header class="top">
+        <div>
+          <p class="eyebrow">ML Vision + AI Robot</p>
+          <h1>Rock Paper Scissors Arena</h1>
+        </div>
+        <div class="scoreboard">
+          <div><span id="personScore">0</span><small>Person</small></div>
+          <div><span id="drawScore">0</span><small>Draw</small></div>
+          <div><span id="robotScore">0</span><small>Robot</small></div>
+        </div>
+      </header>
+
+      <div class="game-grid">
+        <section class="camera-card">
+          <div class="video-wrap">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="overlay"></canvas>
+            <div class="camera-state" id="cameraState">Camera not started</div>
+          </div>
+
+          <div class="controls">
+            <button id="startCamera" type="button">Start Camera</button>
+            <button id="playRound" type="button">Play Round</button>
+            <button id="autoPlayToggle" type="button">Auto Play On</button>
+            <button id="resetGame" type="button">Reset</button>
+          </div>
+
+          <div class="manual">
+            <p>Manual fallback</p>
+            <button type="button" data-manual="rock">Rock</button>
+            <button type="button" data-manual="paper">Paper</button>
+            <button type="button" data-manual="scissors">Scissors</button>
+          </div>
+        </section>
+
+        <section class="battle-card">
+          <div class="player">
+            <span>Person</span>
+            <strong id="personMove">Waiting</strong>
+          </div>
+
+          <div class="robot">
+            <div class="robot-head">
+              <span class="eye"></span>
+              <span class="eye"></span>
+            </div>
+            <div class="robot-hand" id="robotHand" aria-label="Robot gesture">
+              <span class="finger thumb"></span>
+              <span class="finger index"></span>
+              <span class="finger middle"></span>
+              <span class="finger ring"></span>
+              <span class="finger pinky"></span>
+              <span class="palm"></span>
+            </div>
+            <div class="robot-body">
+              <span id="robotEmotion">READY</span>
+            </div>
+          </div>
+
+          <div class="player">
+            <span>Robot AI</span>
+            <strong id="robotMove">Waiting</strong>
+          </div>
+
+          <div class="result" id="resultText">Show rock, paper, or scissors to the camera.</div>
+        </section>
+      </div>
+    </section>
+
+    <aside class="coach">
+      <div class="coach-header">
+        <div class="coach-avatar">AI</div>
+        <div>
+          <h2>Mini LLM Coach</h2>
+          <p>Explains moves, strategy, and detection confidence.</p>
+        </div>
+      </div>
+
+      <div class="chat" id="chat">
+        <div class="message bot">Start the camera, show a hand gesture, then press Play Round. If camera ML is unavailable, use manual buttons.</div>
+      </div>
+
+      <form class="prompt-box" id="coachForm">
+        <input id="coachInput" type="text" placeholder="Ask: how can I win?">
+        <button type="submit">Ask</button>
+      </form>
+
+      <div class="model-card">
+        <h3>How ML Detection Works</h3>
+        <p>The app uses hand landmarks when available, then classifies extended fingers: fist = rock, open hand = paper, two fingers = scissors.</p>
+      </div>
+    </aside>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
